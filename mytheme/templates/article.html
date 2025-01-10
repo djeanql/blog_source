@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block html_lang %}{{ article.lang }}{% endblock %}
+
+{% block head %}
+  {{ super() }}
+
+  {% for tag in article.tags %}
+    <meta name="tags" content="{{tag}}" />
+  {% endfor %}
+
+{% endblock %}
+
+{% block content %}
+<nav id="menu" style="text-align: left ;"><ul>
+  {% for t in article.tags %}
+    <li class="active"><a href="{{ SITEURL }}/{{ t.url }}">{{ t }}</a> {{ "- " if not loop.last else "" }}</li>
+  {% endfor %}
+    <li></li>
+</ul></nav>
+
+<section id="content" class="body">
+  <div class="entry-content">
+    {{ article.content }}
+  </div><!-- /.entry-content -->
+  <div class="post-info">
+    <p style="text-align: right">
+      {{ article.locale_date }}
+    </time>
+    {% if article.modified %}
+    <time class="modified" datetime="{{ article.modified.isoformat() }}">
+      | {{ article.locale_modified }}
+    </time>
+    {% endif %}
+    </p>
+  </div><!-- /.post-info -->
+</section>
+</br>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<section id="content">
+{% block content_title %}
+<h3>Articles</h3>
+{% endblock %}
+<br/>
+
+<nav id="menu" class="menu-centered"><ul>
+        {% for t, null in tags %}
+          <li{% if (t == tag) or ( article is defined and t in article.tags) %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ t.url }}">{{ t }}</a> {{ "- " if not loop.last else "" }}</li>
+        {% endfor %}
+          <li></li>
+    </ul></nav>
+
+<ul id="post-list" class="centered-list">
+
+{% for article in articles_page.object_list %}
+        <li><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark">[{{ article.date.strftime("%Y-%m-%d") }}] {{ article.title }}</a>
+	<!-- <div class="entry-content"> {{ article.summary }} </div> -->
+        </li>
+{% endfor %}
+
+</ul>
+
+{% if articles_page.has_other_pages() %}
+    {% include 'pagination.html' %}
+{% endif %}
+</section><!-- /#content -->
+{% endblock content %}
