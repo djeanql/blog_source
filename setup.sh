@@ -18,5 +18,6 @@ if [[ ! -d deploy ]]; then
     cd deploy
     git init
     git remote add origin https://github.com/djeanql/djeanql.github.io
+    git branch --set-upstream-to=origin/master master
 fi
 
